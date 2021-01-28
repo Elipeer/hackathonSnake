@@ -19,30 +19,26 @@ function createGame(){
 }
 
 createGame();
-
+nextdot ()
 
 //current direction
 let direction = ""
 //listning to what direction was pressed
 document.addEventListener("keydown", keydirection)
 let gameAlive = false;
-let snakeLength = 3;
 var middle = document.getElementById('821');
 middle.style.backgroundColor = 'yellow'
 var currentId = middle.id;
-console.log(currentId)
 var lastpart = [currentId, 1, 1];
-console.log(lastpart)
 //hello
-function looper(){
-    
+function looper(){   
         document.getElementById(lastpart[lastpart.length-1]).style.backgroundColor = "black";      
     }
 
 
 function nextdot (){
-        let rnd = Math.floor((Math.random() * 1600 + 1))
-        let newfood = document.getElementById(810)
+        var rnd = Math.floor((Math.random() * 1600 + 1))
+        let newfood = document.getElementById(rnd)
         newfood.style.backgroundColor = "white"
         console.log(newfood);
         }
@@ -68,17 +64,12 @@ function keydirection(e) {
             }
             else {
                            
-               looper();
-               nextdot();
-               
-              
+              looper();      
               currentId = Number(currentId)-1;                   
               let currentDiv = document.getElementById(currentId)
               currentDiv.style.backgroundColor = 'yellow'
               lastpart.unshift(currentId)
-              lastpart.pop();
-              console.log(lastpart)
-             
+              lastpart.pop(); 
               
             }
          // }, 100);
@@ -94,8 +85,7 @@ function keydirection(e) {
               console.log('game over')
             }
             else {
-               looper();
-               nextdot();
+              looper();
               currentId = Number(currentId)-40;
               let currentDiv = document.getElementById(eval(currentId))  
               currentDiv.style.backgroundColor = 'yellow'
@@ -122,9 +112,7 @@ function keydirection(e) {
               console.log('game over')
             }
             else {
-               looper();
-               nextdot();
-             
+              looper()     
               currentId = Number(currentId)+1;
               let currentDiv = document.getElementById(eval(currentId))  
               currentDiv.style.backgroundColor = 'yellow'
@@ -151,7 +139,7 @@ function keydirection(e) {
             }
             else {
                looper();
-               nextdot();
+      
             
               currentId = Number(currentId)+40;
               let currentDiv = document.getElementById(eval(currentId))  
