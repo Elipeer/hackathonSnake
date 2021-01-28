@@ -6,21 +6,40 @@ body, html{
 
 
 .container{
-    width: 700px;
-    height: 700px;
-    border: solid black 2px;
-    background-color: black;
+    display: grid;
+
+    width: 600px;
+    height: 600px;
+    
+    border: 2px groove #000;
+    box-sizing: content-box;
+    background: black;
 }
 
 .dot{
 	width: 15px;
 	height: 15px;
+	margin: 0 auto;
 	border: solid white 2px;
 }
 
 .endgame{
 	width: 300px;
 	height: 300px;
+	margin: 0 auto;
+	box-sizing: content-box;
     border: solid white 2px;
 
 }
+
+.gridRows{
+	display: grid;
+	border: solid white 1px;
+}
+
+.gridColums{
+	align-content: start;
+	border: solid yellow 1px;
+}
+
+
