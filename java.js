@@ -22,7 +22,7 @@ createGame();
 
 
 //current direction
-let direction = "u"
+let direction = ""
 //listning to what direction was pressed
 document.addEventListener("keydown", keydirection)
 let gameAlive = false;
@@ -31,7 +31,7 @@ var middle = document.getElementById('821');
 middle.style.backgroundColor = 'yellow'
 var currentId = middle.id;
 console.log(currentId)
-
+//hello
 function looper(){
     for (let j = 1; j <= gridBoxSize; j++) {
         //console.log(document.getElementById(j+1))
@@ -71,11 +71,12 @@ function keydirection(e) {
                            
                looper();
                nextdot();
-               currentId = Number(currentId)-1;
+               
             for (var d = snakeLength; d > 0; d--) {
+                    currentId = Number(currentId)-1;
                     
                     console.log(currentId);
-                    let currentDiv = document.getElementById(eval(currentId))  
+                    let currentDiv = document.getElementById(currentId)
                     currentDiv.style.backgroundColor = 'yellow'
              }
               
