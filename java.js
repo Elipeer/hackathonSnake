@@ -52,4 +52,9 @@ function keydirection(e) {
         default:
     }
 }
-
+// makes random spots of food for the snakes
+function nextdot{
+    let rnd = Math.floor((Math.random()*1600+1))
+    let newfood = getElementById(rnd)
+    newfood.style.backgroundColor = "green"
+}
