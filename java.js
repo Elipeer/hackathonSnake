@@ -47,7 +47,7 @@ function foodCollector(){
 
 }
 
-function randomFood (){
+function nextdot (){
         var rnd = Math.floor((Math.random() * 1600 + 1))
         var newfood = document.getElementById(810)
         newfood.style.backgroundColor = "white"
@@ -75,7 +75,7 @@ function keydirection(e) {
             else {
                foodCollector();           
                looper();
-               randomFood();
+               nextdot();
                
               
               currentId = Number(currentId)-1;                   
@@ -103,11 +103,6 @@ function keydirection(e) {
                looper();
                nextdot();
 
-               for (var i = snakeLength; i > 0; i--) {
-                    currentId = Number(currentId)-40;
-                    let currentDiv = document.getElementById(eval(currentId))  
-                    currentDiv.style.backgroundColor = 'yellow'
-              }
 
 
               currentId = Number(currentId)-40;
