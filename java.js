@@ -31,7 +31,8 @@ var middle = document.getElementById('821');
 middle.style.backgroundColor = 'yellow'
 var currentId = middle.id;
 console.log(currentId)
-//hello
+let currentDiv = document.getElementById(currentId)
+
 function looper(){
     for (let j = 1; j <= gridBoxSize; j++) {
         //console.log(document.getElementById(j+1))
@@ -39,20 +40,21 @@ function looper(){
 
         }
     }
+function foodCollector(){
 
+}
 
-function nextdot (){
-        let rnd = Math.floor((Math.random() * 1600 + 1))
-        let newfood = document.getElementById(810)
+function randomFood (){
+        var rnd = Math.floor((Math.random() * 1600 + 1))
+        var newfood = document.getElementById(810)
         newfood.style.backgroundColor = "white"
-        console.log(newfood);
+        
         }
 
         //figurs out what arrow key was pressed
 function keydirection(e) {
 
     
-
     switch (e.keyCode) {
 
         case 37://direction left
@@ -68,9 +70,9 @@ function keydirection(e) {
               console.log('game over')
             }
             else {
-                           
+               foodCollector();           
                looper();
-               nextdot();
+               randomFood();
                
             for (var d = snakeLength; d > 0; d--) {
                     currentId = Number(currentId)-1;
@@ -101,7 +103,7 @@ function keydirection(e) {
                     let currentDiv = document.getElementById(eval(currentId))  
                     currentDiv.style.backgroundColor = 'yellow'
               }
-              
+
               
             }
          // }, 100);
