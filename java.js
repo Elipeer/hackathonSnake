@@ -1,58 +1,57 @@
 
-
+//amount of divs/cells in game
 var gridBoxSize = 1600;
+//where game is played
 var containerBox = document.getElementById('container');
-var newRows;
+//grid counter
 var i = 1;
 
+
 function createGame(){
- for (i = 1; i <= gridBoxSize; i++) {
-	newRows = document.createElement('div');
-	newRows.setAttribute('class', 'gridRows');
-    newRows.setAttribute('id', i);
-    newRows.addEventListener('click', testfunc);
-	containerBox.appendChild(newRows);
-    console.log([i])
-	}
-   let middlex = document.getElementById('821');
-   middlex.style.backgroundColor = 'yellow';
+    for (i = 1; i <= gridBoxSize; i++) {
+        let newCells = document.createElement('div');
+        newCells.setAttribute('class', 'gridRows');
+        newCells.setAttribute('id', i);
+        containerBox.appendChild(newCells);
+        //console.log([i])
+    }
 
 }
 
 createGame();
-
-function testfunc(event){
-console.log(event);
-}
-
 
 
 //current direction
 let direction = "u"
 //listning to what direction was pressed
 document.addEventListener("keydown", keydirection)
-
 let gameAlive = false;
 let snakeLength = 2;
-
 var middle = document.getElementById('821');
+middle.style.backgroundColor = 'yellow';
 var currentId = middle.id;
 console.log(currentId)
 
 function looper(){
-    console.log('looper', gridBoxSize)
     for (let j = 1; j <= gridBoxSize; j++) {
-        
         //console.log(document.getElementById(j+1))
         document.getElementById(j).style.backgroundColor = "black";
 
+        }
     }
-}
 
-//figurs out what arrow key was pressed
+
+function nextdot (){
+        let rnd = Math.floor((Math.random() * 1600 + 1))
+        let newfood = document.getElementById(810)
+        newfood.style.backgroundColor = "white"
+        console.log(newfood);
+        }
+
+        //figurs out what arrow key was pressed
 function keydirection(e) {
 
-
+    
 
     switch (e.keyCode) {
 
@@ -62,9 +61,9 @@ function keydirection(e) {
               
           
           
-          let id = setInterval(function() {
+          //let id = setInterval(function() {
             console.log(currentId)
-            if (currentId <= 810) {
+            if (currentId <= 600) {
                 
             
               clearInterval(id);
@@ -72,12 +71,9 @@ function keydirection(e) {
             }
             else {
                            
-
-
                looper();
-
-                for (var i = snakeLength; i > 0; i--) {
-                    //document.getElementById(eval(currentId)+i).style.backgroundColor = "black";
+               nextdot();
+            for (var i = snakeLength; i > 0; i--) {
                     currentId = Number(currentId)-i;
                     let currentDiv = document.getElementById(eval(currentId))  
                     currentDiv.style.backgroundColor = 'yellow'
@@ -85,13 +81,30 @@ function keydirection(e) {
            
               
             }
-          }, 100);
+         // }, 100);
         
             }
             break;
         case 38://direction up
             if (direction != "d") {
                 direction = "u";
+          // let id = setInterval(function() {
+            if (currentId == 801) {
+              clearInterval(id);
+              console.log('game over')
+            }
+            else {
+               looper();
+               nextdot();
+               for (var i = snakeLength; i > 0; i--) {
+                    currentId = Number(currentId)-40;
+                    let currentDiv = document.getElementById(eval(currentId))  
+                    currentDiv.style.backgroundColor = 'yellow'
+              }
+              
+              
+            }
+         // }, 100);
 
             }
             break;
@@ -101,23 +114,23 @@ function keydirection(e) {
             if (direction != "l") {
                 direction = "r";
 
-            let id = setInterval(function() {
+           // let id = setInterval(function() {
             if (currentId == 801) {
               clearInterval(id);
               console.log('game over')
             }
             else {
-              document.getElementById(eval(currentId)).style.backgroundColor = "black";
-              console.log("hello" ,currentId)
-              console.log(currentId+1);
-              currentId = Number(currentId)+1;
-              
-              let currentDiv = document.getElementById(eval(currentId))  
-              currentDiv.style.backgroundColor = 'yellow'
+               looper();
+               nextdot();
+               for (var i = snakeLength; i > 0; i--) {
+                    currentId = Number(currentId)+i;
+                    let currentDiv = document.getElementById(eval(currentId))  
+                    currentDiv.style.backgroundColor = 'yellow'
+              }
               
               
             }
-          }, 100);
+         // }, 100);
             }
             break;
 
@@ -127,9 +140,31 @@ function keydirection(e) {
         case 40://direction down
             if (direction != "u") {
                 direction = "d";
+                          // let id = setInterval(function() {
+            if (currentId == 801) {
+              clearInterval(id);
+              console.log('game over')
+            }
+            else {
+               looper();
+               nextdot();
+               for (var i = snakeLength; i > 0; i--) {
+                    currentId = Number(currentId)+40;
+                    let currentDiv = document.getElementById(eval(currentId))  
+                    currentDiv.style.backgroundColor = 'yellow'
+              }
+              
+              
+            }
+         // }, 100);
             }
             break;
         default:
     }
 }
+
+
+
+
+
 
