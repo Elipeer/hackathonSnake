@@ -30,18 +30,30 @@ var middle = document.getElementById('821');
 middle.style.backgroundColor = 'yellow'
 var rnd =1;
 var currentId = middle.id;
-console.log(currentId)
+//console.log(currentId)
 nextdot();
 let currentDiv = document.getElementById(currentId)
 
 
-var lastpart = [currentId, 1, 1];
+var lastpart = [currentId,1,1];
 
 
-function addLength(){lastpart.push(1);}
+
+function addLength(){
+
+    lastpart.push(1);
+    score();
+}
 addLength();
-console.log(lastpart)
+//console.log(lastpart)
 
+function score(){
+    let score = lastpart.length-4;
+    let scoreCard = document.getElementById('scoreId');
+    scoreCard.innerHTML = score;
+    console.log(score)
+}
+score();
 
 function looper(){
     
@@ -51,7 +63,7 @@ function foodCollector(){
       if (rnd == currentId) {
         nextdot()
         addLength()
-        console.log('hello')
+       // console.log('hello')
       }
       
 }
@@ -62,7 +74,13 @@ function nextdot (){
         newfood.style.backgroundColor = "white"
         
         }
-
+let las;
+function hitMyFace(){
+    las = lastpart.slice(1,lastpart.length);
+    if (las.includes(currentId)) {
+        console.log('you lose')
+    }
+}
 
 
         //figurs out what arrow key was pressed
@@ -71,6 +89,7 @@ let upD;
 let downD;
 let rightD;
 let leftD;
+
     
     switch (e.keyCode) {
 
@@ -81,12 +100,16 @@ let leftD;
           
           
           leftD = setInterval(function() {
-            console.log(currentId)
-            if (currentId == 1600) {
-              clearInterval(id);
-              console.log('game over')
-            }
+           // console.log(currentId)
+          if ((currentId-1) %40 == 0) {
+             clearInterval(leftD)
+             console.log("you lost")
+          }
             else {
+                hitMyFace();
+                if (direction != "l") {
+                clearInterval(leftD);
+              }
                           
                looper();
             foodCollector();
@@ -97,7 +120,7 @@ let leftD;
               currentDiv.style.backgroundColor = 'yellow'
               lastpart.unshift(currentId)
               lastpart.pop();
-              console.log(lastpart)
+              //console.log(lastpart)
              
               
             }
@@ -108,12 +131,17 @@ let leftD;
         case 38://direction up
             if (direction != "d") {
                 direction = "u";
-          upd = setInterval(function() {
-            if (currentId == 1600) {
-              clearInterval(id);
-              console.log('game over')
-            }
+          upD = setInterval(function() {
+          if (currentId > 0 && currentId<40) {
+             clearInterval(upD)
+             console.log("you lost")
+          }
             else {
+                hitMyFace();
+               // console.log(lastpart);
+                if (direction != "u") {
+                clearInterval(upD);
+              }
                looper();
                foodCollector();
 
@@ -124,7 +152,7 @@ let leftD;
               currentDiv.style.backgroundColor = 'yellow'
               lastpart.unshift(currentId)
               lastpart.pop();
-              console.log(lastpart)
+             // console.log(lastpart)
               
               
 
@@ -141,11 +169,15 @@ let leftD;
                 direction = "r";
 
            rightD = setInterval(function() {
-            if (currentId == 1<40) {
-              clearInterval(id);
-              console.log('game over')
-            }
+          if (currentId %40 == 0) {
+             clearInterval(rightD)
+             console.log("you lost")
+          }
             else {
+                hitMyFace();
+                if (direction != "r") {
+                clearInterval(rightD);
+              }
                looper();
             foodCollector();
              
@@ -154,7 +186,7 @@ let leftD;
               currentDiv.style.backgroundColor = 'yellow'
               lastpart.unshift(currentId)
               lastpart.pop();
-              console.log(lastpart)
+             // console.log(lastpart)
               
               
             }
@@ -170,15 +202,18 @@ let leftD;
             if (direction != "u") {
                 direction = "d";
 
-                if (direction == "l" || direction) {}
+               
              downD = setInterval(function() {
 
-            if (currentId == 0) {
-              clearInterval(id);
-              console.log('game over')
-            }
+          if (currentId > 1560 && currentId<1601) {
+             clearInterval(downD)
+             console.log("you lost")
+           }
             else {
-
+                hitMyFace();
+               if (direction != "d") {
+                clearInterval(downD);
+              }
                looper();
             foodCollector();
             
@@ -187,13 +222,13 @@ let leftD;
               currentDiv.style.backgroundColor = 'yellow'
               lastpart.unshift(currentId)
               lastpart.pop();
-              console.log(lastpart)
+             // console.log(lastpart)
               
               
             }
         }, 100);
             }
-            
+
             break;
         default:
     }
