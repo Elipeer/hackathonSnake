@@ -164,5 +164,5 @@ function codecaller(){
 }
 function dead(){
   let loose = document.getElementById("lost")
-  loose.style.display = "block"
+  loose.style.display = "block"//still need to create work in progress
 }
