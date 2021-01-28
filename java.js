@@ -32,12 +32,28 @@ let direction = "u"
 //listning to what direction was pressed
 document.addEventListener("keydown", keydirection)
 
+let gameAlive = false;
+let snakeLength = 2;
+
 var middle = document.getElementById('821');
 var currentId = middle.id;
 console.log(currentId)
 
+function looper(){
+    console.log('looper', gridBoxSize)
+    for (let j = 1; j <= gridBoxSize; j++) {
+        
+        //console.log(document.getElementById(j+1))
+        document.getElementById(j).style.backgroundColor = "black";
+
+    }
+}
+
 //figurs out what arrow key was pressed
 function keydirection(e) {
+
+
+
     switch (e.keyCode) {
 
         case 37://direction left
@@ -47,16 +63,26 @@ function keydirection(e) {
           
           
           let id = setInterval(function() {
-            if (currentId == 801) {
+            console.log(currentId)
+            if (currentId <= 810) {
+                
+            
               clearInterval(id);
               console.log('game over')
             }
             else {
-              document.getElementById(eval(currentId)).style.backgroundColor = "black";
-              currentId = eval(currentId-1)  
-              let currentDiv = document.getElementById(eval(currentId))  
-              currentDiv.style.backgroundColor = 'yellow'
-              //
+                           
+
+
+               looper();
+
+                for (var i = snakeLength; i > 0; i--) {
+                    //document.getElementById(eval(currentId)+i).style.backgroundColor = "black";
+                    currentId = Number(currentId)-i;
+                    let currentDiv = document.getElementById(eval(currentId))  
+                    currentDiv.style.backgroundColor = 'yellow'
+              }
+           
               
             }
           }, 100);
@@ -66,13 +92,38 @@ function keydirection(e) {
         case 38://direction up
             if (direction != "d") {
                 direction = "u";
+
             }
             break;
+
+
         case 39://direction right
             if (direction != "l") {
                 direction = "r";
+
+            let id = setInterval(function() {
+            if (currentId == 801) {
+              clearInterval(id);
+              console.log('game over')
+            }
+            else {
+              document.getElementById(eval(currentId)).style.backgroundColor = "black";
+              console.log("hello" ,currentId)
+              console.log(currentId+1);
+              currentId = Number(currentId)+1;
+              
+              let currentDiv = document.getElementById(eval(currentId))  
+              currentDiv.style.backgroundColor = 'yellow'
+              
+              
+            }
+          }, 100);
             }
             break;
+
+
+
+
         case 40://direction down
             if (direction != "u") {
                 direction = "d";
