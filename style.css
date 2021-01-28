@@ -7,7 +7,8 @@ body, html{
 
 .container{
     display: grid;
-
+    grid-template-columns: repeat(40, 1fr);
+    grid-template-rows: repeat(40, 1fr);
     width: 600px;
     height: 600px;
     
@@ -33,13 +34,8 @@ body, html{
 }
 
 .gridRows{
-	display: grid;
+	
 	border: solid white 1px;
-}
-
-.gridColums{
-	align-content: start;
-	border: solid yellow 1px;
 }
 
 
