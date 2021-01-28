@@ -31,27 +31,33 @@ var middle = document.getElementById('821');
 middle.style.backgroundColor = 'yellow'
 var currentId = middle.id;
 console.log(currentId)
+
+let currentDiv = document.getElementById(currentId)
+
+
 var lastpart = [currentId, 1, 1];
 console.log(lastpart)
 //hello
+
 function looper(){
     
         document.getElementById(lastpart[lastpart.length-1]).style.backgroundColor = "black";      
     }
+function foodCollector(){
 
+}
 
-function nextdot (){
-        let rnd = Math.floor((Math.random() * 1600 + 1))
-        let newfood = document.getElementById(810)
+function randomFood (){
+        var rnd = Math.floor((Math.random() * 1600 + 1))
+        var newfood = document.getElementById(810)
         newfood.style.backgroundColor = "white"
-        console.log(newfood);
+        
         }
 
         //figurs out what arrow key was pressed
 function keydirection(e) {
 
     
-
     switch (e.keyCode) {
 
         case 37://direction left
@@ -67,9 +73,9 @@ function keydirection(e) {
               console.log('game over')
             }
             else {
-                           
+               foodCollector();           
                looper();
-               nextdot();
+               randomFood();
                
               
               currentId = Number(currentId)-1;                   
@@ -96,6 +102,14 @@ function keydirection(e) {
             else {
                looper();
                nextdot();
+
+               for (var i = snakeLength; i > 0; i--) {
+                    currentId = Number(currentId)-40;
+                    let currentDiv = document.getElementById(eval(currentId))  
+                    currentDiv.style.backgroundColor = 'yellow'
+              }
+
+
               currentId = Number(currentId)-40;
               let currentDiv = document.getElementById(eval(currentId))  
               currentDiv.style.backgroundColor = 'yellow'
@@ -104,6 +118,7 @@ function keydirection(e) {
               console.log(lastpart)
               
               
+
               
             }
          // }, 100);
