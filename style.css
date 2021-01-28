@@ -11,7 +11,6 @@ body, html{
     grid-template-rows: repeat(40, 1fr);
     width: 600px;
     height: 600px;
-    
     border: 2px groove #000;
     box-sizing: content-box;
     background: black;
