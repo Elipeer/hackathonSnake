@@ -30,21 +30,9 @@ var middle = document.getElementById('821');
 middle.style.backgroundColor = 'yellow'
 var rnd =1;
 var currentId = middle.id;
-console.log(currentId)
-nextdot();
-let currentDiv = document.getElementById(currentId)
-
-
 var lastpart = [currentId, 1, 1];
 
-
-function addLength(){lastpart.push(1);}
-addLength();
-console.log(lastpart)
-
-
-function looper(){
-    
+function looper(){   
         document.getElementById(lastpart[lastpart.length-1]).style.backgroundColor = "black";      
     }
 function foodCollector(){
@@ -55,10 +43,10 @@ function foodCollector(){
       }
       
 }
-
+nextdot ()
 function nextdot (){
-        rnd = Math.floor((Math.random() * 1600 + 1))
-        var newfood = document.getElementById(rnd)
+        var rnd = Math.floor((Math.random() * 1600 + 1))
+        let newfood = document.getElementById(rnd)
         newfood.style.backgroundColor = "white"
         
         }
@@ -76,30 +64,29 @@ function keydirection(e) {
                 direction = "l";
               
           
+              
+                let id = setInterval(function () {
+                  console.log(currentId)
+                  if (currentId == 1600) {
+                    clearInterval(id);
+                    console.log('game over')
+                  }
+                  else {
+                    if (direction != "l") {
+                      clearInterval(id);
+                    }
+                    looper();
+                    currentId = Number(currentId) - 1;
+                    let currentDiv = document.getElementById(currentId)
+                    currentDiv.style.backgroundColor = 'yellow'
+                    lastpart.unshift(currentId)
+                    lastpart.pop();
+
+                  }
+                
           
-          let id = setInterval(function() {
-            console.log(currentId)
-            if (currentId == 1600) {
-              clearInterval(id);
-              console.log('game over')
-            }
-            else {
-                          
-               looper();
-            foodCollector();
-               
-              
-              currentId = Number(currentId)-1;                   
-              let currentDiv = document.getElementById(currentId)
-              currentDiv.style.backgroundColor = 'yellow'
-              lastpart.unshift(currentId)
-              lastpart.pop();
-              console.log(lastpart)
-             
-              
-            }
-         }, 100);
-        
+              }, 100);
+
             }
             break;
         case 38://direction up
@@ -111,11 +98,10 @@ function keydirection(e) {
               console.log('game over')
             }
             else {
-               looper();
-               foodCollector();
-
-
-
+              if (direction != "u") {
+                clearInterval(id);
+              }
+              looper();
               currentId = Number(currentId)-40;
               let currentDiv = document.getElementById(eval(currentId))  
               currentDiv.style.backgroundColor = 'yellow'
@@ -138,14 +124,15 @@ function keydirection(e) {
                 direction = "r";
 
            let id = setInterval(function() {
-            if (currentId == 1<40) {
+            if (currentId == 1>40) {
               clearInterval(id);
               console.log('game over')
             }
             else {
-               looper();
-            foodCollector();
-             
+              if (direction != "r") {
+                clearInterval(id);
+              }
+              looper()     
               currentId = Number(currentId)+1;
               let currentDiv = document.getElementById(eval(currentId))  
               currentDiv.style.backgroundColor = 'yellow'
@@ -171,8 +158,11 @@ function keydirection(e) {
               console.log('game over')
             }
             else {
+              if (direction != "d") {
+                clearInterval(id);
+              }
                looper();
-            foodCollector();
+      
             
               currentId = Number(currentId)+40;
               let currentDiv = document.getElementById(eval(currentId))  
