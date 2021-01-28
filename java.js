@@ -31,14 +31,17 @@ var middle = document.getElementById('821');
 middle.style.backgroundColor = 'yellow'
 var currentId = middle.id;
 console.log(currentId)
+
 let currentDiv = document.getElementById(currentId)
 
-function looper(){
-    for (let j = 1; j <= gridBoxSize; j++) {
-        //console.log(document.getElementById(j+1))
-        document.getElementById(j).style.backgroundColor = "black";
 
-        }
+var lastpart = [currentId, 1, 1];
+console.log(lastpart)
+//hello
+
+function looper(){
+    
+        document.getElementById(lastpart[lastpart.length-1]).style.backgroundColor = "black";      
     }
 function foodCollector(){
 
@@ -74,13 +77,14 @@ function keydirection(e) {
                looper();
                randomFood();
                
-            for (var d = snakeLength; d > 0; d--) {
-                    currentId = Number(currentId)-1;
-                    
-                    console.log(currentId);
-                    let currentDiv = document.getElementById(currentId)
-                    currentDiv.style.backgroundColor = 'yellow'
-             }
+              
+              currentId = Number(currentId)-1;                   
+              let currentDiv = document.getElementById(currentId)
+              currentDiv.style.backgroundColor = 'yellow'
+              lastpart.unshift(currentId)
+              lastpart.pop();
+              console.log(lastpart)
+             
               
             }
          // }, 100);
@@ -98,11 +102,22 @@ function keydirection(e) {
             else {
                looper();
                nextdot();
+
                for (var i = snakeLength; i > 0; i--) {
                     currentId = Number(currentId)-40;
                     let currentDiv = document.getElementById(eval(currentId))  
                     currentDiv.style.backgroundColor = 'yellow'
               }
+
+
+              currentId = Number(currentId)-40;
+              let currentDiv = document.getElementById(eval(currentId))  
+              currentDiv.style.backgroundColor = 'yellow'
+              lastpart.unshift(currentId)
+              lastpart.pop();
+              console.log(lastpart)
+              
+              
 
               
             }
@@ -124,11 +139,13 @@ function keydirection(e) {
             else {
                looper();
                nextdot();
-               for (var i = snakeLength; i > 0; i--) {
-                    currentId = Number(currentId)+1;
-                    let currentDiv = document.getElementById(eval(currentId))  
-                    currentDiv.style.backgroundColor = 'yellow'
-              }
+             
+              currentId = Number(currentId)+1;
+              let currentDiv = document.getElementById(eval(currentId))  
+              currentDiv.style.backgroundColor = 'yellow'
+              lastpart.unshift(currentId)
+              lastpart.pop();
+              console.log(lastpart)
               
               
             }
@@ -150,11 +167,13 @@ function keydirection(e) {
             else {
                looper();
                nextdot();
-               for (var i = snakeLength; i > 0; i--) {
-                    currentId = Number(currentId)+40;
-                    let currentDiv = document.getElementById(eval(currentId))  
-                    currentDiv.style.backgroundColor = 'yellow'
-              }
+            
+              currentId = Number(currentId)+40;
+              let currentDiv = document.getElementById(eval(currentId))  
+              currentDiv.style.backgroundColor = 'yellow'
+              lastpart.unshift(currentId)
+              lastpart.pop();
+              console.log(lastpart)
               
               
             }
