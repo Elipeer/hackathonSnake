@@ -63,11 +63,14 @@ function nextdot (){
         
         }
 
-        
+
 
         //figurs out what arrow key was pressed
 function keydirection(e) {
-
+let upD;
+let downD;
+let rightD;
+let leftD;
     
     switch (e.keyCode) {
 
@@ -77,7 +80,7 @@ function keydirection(e) {
               
           
           
-          let id = setInterval(function() {
+          leftD = setInterval(function() {
             console.log(currentId)
             if (currentId == 1600) {
               clearInterval(id);
@@ -105,7 +108,7 @@ function keydirection(e) {
         case 38://direction up
             if (direction != "d") {
                 direction = "u";
-          let id = setInterval(function() {
+          upd = setInterval(function() {
             if (currentId == 1600) {
               clearInterval(id);
               console.log('game over')
@@ -137,7 +140,7 @@ function keydirection(e) {
             if (direction != "l") {
                 direction = "r";
 
-           let id = setInterval(function() {
+           rightD = setInterval(function() {
             if (currentId == 1<40) {
               clearInterval(id);
               console.log('game over')
@@ -163,14 +166,19 @@ function keydirection(e) {
 
 
         case 40://direction down
+
             if (direction != "u") {
                 direction = "d";
-             let id = setInterval(function() {
+
+                if (direction == "l" || direction) {}
+             downD = setInterval(function() {
+
             if (currentId == 0) {
               clearInterval(id);
               console.log('game over')
             }
             else {
+
                looper();
             foodCollector();
             
@@ -185,6 +193,7 @@ function keydirection(e) {
             }
         }, 100);
             }
+            
             break;
         default:
     }
