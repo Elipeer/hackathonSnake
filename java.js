@@ -26,9 +26,9 @@ let direction = "u"
 //listning to what direction was pressed
 document.addEventListener("keydown", keydirection)
 let gameAlive = false;
-let snakeLength = 2;
+let snakeLength = 3;
 var middle = document.getElementById('821');
-middle.style.backgroundColor = 'yellow';
+middle.style.backgroundColor = 'yellow'
 var currentId = middle.id;
 console.log(currentId)
 
@@ -63,9 +63,7 @@ function keydirection(e) {
           
           //let id = setInterval(function() {
             console.log(currentId)
-            if (currentId <= 600) {
-                
-            
+            if (currentId == 1600) {
               clearInterval(id);
               console.log('game over')
             }
@@ -73,12 +71,13 @@ function keydirection(e) {
                            
                looper();
                nextdot();
-            for (var i = snakeLength; i > 0; i--) {
-                    currentId = Number(currentId)-i;
+               currentId = Number(currentId)-1;
+            for (var d = snakeLength; d > 0; d--) {
+                    
+                    console.log(currentId);
                     let currentDiv = document.getElementById(eval(currentId))  
                     currentDiv.style.backgroundColor = 'yellow'
-              }
-           
+             }
               
             }
          // }, 100);
@@ -89,7 +88,7 @@ function keydirection(e) {
             if (direction != "d") {
                 direction = "u";
           // let id = setInterval(function() {
-            if (currentId == 801) {
+            if (currentId == 1600) {
               clearInterval(id);
               console.log('game over')
             }
@@ -115,7 +114,7 @@ function keydirection(e) {
                 direction = "r";
 
            // let id = setInterval(function() {
-            if (currentId == 801) {
+            if (currentId == 1600) {
               clearInterval(id);
               console.log('game over')
             }
@@ -123,7 +122,7 @@ function keydirection(e) {
                looper();
                nextdot();
                for (var i = snakeLength; i > 0; i--) {
-                    currentId = Number(currentId)+i;
+                    currentId = Number(currentId)+1;
                     let currentDiv = document.getElementById(eval(currentId))  
                     currentDiv.style.backgroundColor = 'yellow'
               }
@@ -141,7 +140,7 @@ function keydirection(e) {
             if (direction != "u") {
                 direction = "d";
                           // let id = setInterval(function() {
-            if (currentId == 801) {
+            if (currentId == 1600) {
               clearInterval(id);
               console.log('game over')
             }
@@ -162,9 +161,3 @@ function keydirection(e) {
         default:
     }
 }
-
-
-
-
-
-
