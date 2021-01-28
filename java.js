@@ -1,12 +1,12 @@
 
+
 var gridBoxSize = 1600;
 var containerBox = document.getElementById('container');
-
-
 var newRows;
 var i = 1;
+
 function createGame(){
-for (i = 1; i <= gridBoxSize; i++) {
+ for (i = 1; i <= gridBoxSize; i++) {
 	newRows = document.createElement('div');
 	newRows.setAttribute('class', 'gridRows');
     newRows.setAttribute('id', i);
@@ -19,15 +19,14 @@ for (i = 1; i <= gridBoxSize; i++) {
 
 }
 
-	createGame();
+createGame();
 
 function testfunc(event){
 console.log(event);
 }
 
 
-//the snake
-let dot = document.getElementById("dot")
+
 //current direction
 let direction = "u"
 //listning to what direction was pressed
@@ -46,10 +45,11 @@ function keydirection(e) {
                 direction = "l";
               
           
-          var position = middle;
+          
           let id = setInterval(function() {
-            if (position == 600) {
+            if (currentId == 801) {
               clearInterval(id);
+              console.log('game over')
             }
             else {
               document.getElementById(eval(currentId)).style.backgroundColor = "black";
