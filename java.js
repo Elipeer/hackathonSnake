@@ -65,7 +65,7 @@ function addLength() {
 function score() {
   let score = lastpart.length - 4;
   let scoreCard = document.getElementById('scoreId');
-  scoreCard.innerHTML = "Score " + score;
+  scoreCard.innerHTML = "Score: " + score;
   console.log(score)
 }
 //makes the last spot of the snake bck to black
