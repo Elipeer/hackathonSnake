@@ -22,15 +22,12 @@ function gameOverSound(){
     gameOverSound1.loop = false;
     gameOverSound1.autoplay = true;
     gameOverSound1.load();
-    console.log('soundsover')
-
 }
 
 function soundtrack(){
     soundtrack1.loop = true;
     soundtrack1.autoplay = true;
     soundtrack1.load();
-console.log('sounds')
 }
 
 function startgame(e){
@@ -54,7 +51,6 @@ function createGame() {
     newCells.setAttribute('class', 'gridRows');
     newCells.setAttribute('id', i);
     containerBox.appendChild(newCells);
-    //console.log([i])
   }
 }
 //adds one spot to the snake
@@ -66,7 +62,6 @@ function score() {
   let score = lastpart.length - 4;
   let scoreCard = document.getElementById('scoreId');
   scoreCard.innerHTML = "Score: " + score;
-  console.log(score)
 }
 //makes the last spot of the snake bck to black
 function looper() {
@@ -189,11 +184,11 @@ function codecaller(interval){
   hitMyFace(interval);
 }         
 function dead(id){
+  document.removeEventListener("keydown", keydirection)
   soundtrack1.pause();
   gameOverSound();
-  console.log("dead")
   clearInterval(id)
-  document.removeEventListener("keydown", keydirection)
+  
   let loose = document.createElement("button")
   loose.setAttribute("class", "button button2");
   loose.innerHTML = "Play Again"
