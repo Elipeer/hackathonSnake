@@ -6,8 +6,17 @@ var containerBox = document.getElementById('container');
 //grid counter
 var i = 1;
 
+function sound(){
+    var sound = document.getElementById("sounds");
+    sound.loop = true;
+    sound.autoplay = true;
+    sound.load();
+console.log('sounds')
+}
 
 function createGame(){
+    sound();
+
     for (i = 1; i <= gridBoxSize; i++) {
         let newCells = document.createElement('div');
         newCells.setAttribute('class', 'gridRows');
@@ -53,7 +62,7 @@ function score(){
     scoreCard.innerHTML = score;
     console.log(score)
 }
-score();
+
 
 function looper(){
     
@@ -69,11 +78,16 @@ function foodCollector(){
 }
 
 function nextdot (){
+
+        let foodColors = ['white', 'blue', 'pink', 'green','cyan'];
         rnd = Math.floor((Math.random() * 1600 + 1))
         var newfood = document.getElementById(rnd)
-        newfood.style.backgroundColor = "white"
-        
+        for (c in foodColors){
+            var j = Math.floor(Math.random() * (c));
+            newfood.style.backgroundColor = foodColors[j];
         }
+
+    }
 let las;
 function hitMyFace(){
     las = lastpart.slice(1,lastpart.length);
@@ -81,7 +95,6 @@ function hitMyFace(){
         console.log('you lose')
     }
 }
-
 
         //figurs out what arrow key was pressed
 function keydirection(e) {
@@ -132,7 +145,7 @@ let leftD;
             if (direction != "d") {
                 direction = "u";
           upD = setInterval(function() {
-          if (currentId > 0 && currentId<40) {
+          if (currentId > 0 && currentId<41) {
              clearInterval(upD)
              console.log("you lost")
           }
