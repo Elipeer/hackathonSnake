@@ -2,7 +2,6 @@
 var gridBoxSize = 1600;
 //where game is played
 var containerBox = document.getElementById('container');
-
 //start button activates game
 var startbutton = document.getElementById("button1")
 startbutton.addEventListener("click", startgame)
@@ -15,7 +14,24 @@ var currentId = 821;
 var lastpart = [currentId, 1, 1, 1];
 let currentDiv = document.getElementById(currentId)
  
+var soundtrack1 = document.getElementById('sounds');
+var gameOverSound1 = document.getElementById('soundsover');
 createGame();
+
+function gameOverSound(){
+    gameOverSound1.loop = false;
+    gameOverSound1.autoplay = true;
+    gameOverSound1.load();
+    console.log('soundsover')
+
+}
+
+function soundtrack(){
+    soundtrack1.loop = true;
+    soundtrack1.autoplay = true;
+    soundtrack1.load();
+console.log('sounds')
+}
 
 function startgame(e){
   startbutton.remove()
@@ -23,9 +39,13 @@ function startgame(e){
   var middle = document.getElementById('821');
   middle.style.backgroundColor = 'yellow'
   currentId = middle.id;
+  lastpart = [currentId, 1, 1, 1];
+  direction = ""
   //listen to keystorke direction
   document.addEventListener("keydown", keydirection)
+  score();
   nextdot();
+  soundtrack();
 }
 //creates the grid of the game
 function createGame() {
@@ -45,7 +65,7 @@ function addLength() {
 function score() {
   let score = lastpart.length - 4;
   let scoreCard = document.getElementById('scoreId');
-  scoreCard.innerHTML = score;
+  scoreCard.innerHTML = "Score " + score;
   console.log(score)
 }
 //makes the last spot of the snake bck to black
@@ -72,7 +92,6 @@ function nextdot() {
   while (lastpart.includes(rnd)) {
     rnd = Math.floor((Math.random() * 1600 + 1))
 }
-
 }
 //if the snake hits himself
 function hitMyFace(interval) {
@@ -85,7 +104,6 @@ function hitMyFace(interval) {
 //figurs out what arrow key was pressed
 function keydirection(e) {
   switch (e.keyCode) {
-
     case 37://direction left
       if (direction != "r") {
         direction = "l";
@@ -104,7 +122,6 @@ function keydirection(e) {
         }, 100);
       }
       break;
-
     case 38://direction up
       if (direction != "d") {
         direction = "u";
@@ -123,7 +140,6 @@ function keydirection(e) {
         }, 100);
       }
       break;
-
     case 39://direction right
       if (direction != "l") {
         direction = "r";
@@ -142,7 +158,6 @@ function keydirection(e) {
         }, 100);
       }
       break;
-
     case 40://direction down
       if (direction != "u") {
         direction = "d";
@@ -173,8 +188,9 @@ function codecaller(interval){
   foodCollector();          
   hitMyFace(interval);
 }         
-
 function dead(id){
+  soundtrack1.pause();
+  gameOverSound();
   console.log("dead")
   clearInterval(id)
   document.removeEventListener("keydown", keydirection)
@@ -182,5 +198,19 @@ function dead(id){
   loose.setAttribute("class", "button button2");
   loose.innerHTML = "Play Again"
   document.getElementById("container").appendChild(loose)
-  
+  loose.addEventListener("click", newgame)
+
 }
+function newgame(){
+  document.getElementsByTagName("button")[0].remove()
+  for (let i = 1; i < gridBoxSize; i++) {
+    containerBox.children[i].style.backgroundColor = "black"  
+  }
+  gameOverSound1.pause(); 
+  soundtrack();
+  startgame();
+}
+
+
+
+
