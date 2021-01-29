@@ -3,23 +3,30 @@ var gridBoxSize = 1600;
 //where game is played
 var containerBox = document.getElementById('container');
 
-createGame();
-
+//start button activates game
+var startbutton = document.getElementById("button1")
+startbutton.addEventListener("click", startgame)
 //current direction
 let direction = ""
-//listning to what direction was pressed
-document.addEventListener("keydown", keydirection)
-//fisrt dot of snake
-var middle = document.getElementById('821');
-middle.style.backgroundColor = 'yellow'
 //saves ransom noumber spot
 var rnd = 1;
-var currentId = middle.id;
+var currentId = 821;
 //the snake itself as an array
 var lastpart = [currentId, 1, 1, 1];
 let currentDiv = document.getElementById(currentId)
+ 
+createGame();
 
-nextdot();
+function startgame(e){
+  startbutton.remove()
+  //fisrt dot of snake
+  var middle = document.getElementById('821');
+  middle.style.backgroundColor = 'yellow'
+  currentId = middle.id;
+  //listen to keystorke direction
+  document.addEventListener("keydown", keydirection)
+  nextdot();
+}
 //creates the grid of the game
 function createGame() {
   for (let i = 1; i <= gridBoxSize; i++) {
@@ -54,14 +61,24 @@ function foodCollector() {
 }
 //creates randomely a tod on the screen
 function nextdot() {
+  let foodColors = ["white", "blue", "pink", "green","cyan"];
   rnd = Math.floor((Math.random() * 1600 + 1))
   var newfood = document.getElementById(rnd)
   newfood.style.backgroundColor = "white"
+  for (c in foodColors){
+    var j = Math.floor(Math.random() * (foodColors.length));
+    newfood.style.backgroundColor = foodColors[j];
+  } 
+  while (lastpart.includes(rnd)) {
+    rnd = Math.floor((Math.random() * 1600 + 1))
+}
+
 }
 //if the snake hits himself
-function hitMyFace() {
+function hitMyFace(interval) {
   let las = lastpart.slice(1, lastpart.length);
   if (las.includes(currentId)) {
+    clearInterval(interval)
     dead()
   }
 }
@@ -75,15 +92,14 @@ function keydirection(e) {
         let leftD = setInterval(function () {
           if ((currentId - 1) % 40 == 0) {
             clearInterval(leftD)
-            dead()
+            dead(leftD)
           }
           else {
             if (direction != "l") {
               clearInterval(leftD);
             }
-            codecaller()
             currentId = Number(currentId) - 1;
-            workcode()                      
+            codecaller(leftD)                      
           }
         }, 100);
       }
@@ -93,17 +109,16 @@ function keydirection(e) {
       if (direction != "d") {
         direction = "u";
         let upD = setInterval(function () {
-          if (currentId > 0 && currentId < 40) {
+          if (currentId > 0 && currentId < 41) {
             clearInterval(upD)
-            dead()
+            dead(upD)
           }
           else {
             if (direction != "u") {
               clearInterval(upD);
             }
-            codecaller()
             currentId = Number(currentId) - 40;
-            workcode()           
+            codecaller(upD)           
           }
         }, 100);
       }
@@ -115,15 +130,14 @@ function keydirection(e) {
         let rightD = setInterval(function () {
           if (currentId % 40 == 0) {
             clearInterval(rightD)
-            dead()
+            dead(rightD)
           }
           else {
             if (direction != "r") {
               clearInterval(rightD);
             }
-            codecaller()
             currentId = Number(currentId) + 1;
-            workcode()             
+            codecaller(rightD)             
           }
         }, 100);
       }
@@ -135,15 +149,14 @@ function keydirection(e) {
         let downD = setInterval(function () {
           if (currentId > 1560 && currentId < 1601) {
             clearInterval(downD)
-            dead()
+            dead(downD)
           }
           else {
             if (direction != "d") {
               clearInterval(downD);
             }
-            codecaller()
             currentId = Number(currentId) + 40;
-            workcode()            
+            codecaller(downD)            
           }
         }, 100);
       }
@@ -151,18 +164,23 @@ function keydirection(e) {
     default:
   }
 }
-function workcode(){
+function codecaller(interval){
   let currentDiv = document.getElementById(currentId)
   currentDiv.style.backgroundColor = 'yellow'
   lastpart.unshift(currentId)
   lastpart.pop();
-}
-function codecaller(){
+  looper();
   foodCollector();          
-  hitMyFace();
-  looper();           
-}
-function dead(){
-  let loose = document.getElementById("lost")
-  loose.style.display = "block"//still need to create work in progress
+  hitMyFace(interval);
+}         
+
+function dead(id){
+  console.log("dead")
+  clearInterval(id)
+  document.removeEventListener("keydown", keydirection)
+  let loose = document.createElement("button")
+  loose.setAttribute("class", "button button2");
+  loose.innerHTML = "Play Again"
+  document.getElementById("container").appendChild(loose)
+  
 }
