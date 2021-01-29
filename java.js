@@ -27,6 +27,7 @@ function startgame(e){
   direction = ""
   //listen to keystorke direction
   document.addEventListener("keydown", keydirection)
+  score();
   nextdot();
 }
 //creates the grid of the game
