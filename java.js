@@ -39,8 +39,11 @@ function startgame(e){
   var middle = document.getElementById('821');
   middle.style.backgroundColor = 'yellow'
   currentId = middle.id;
+  lastpart = [currentId, 1, 1, 1];
+  direction = ""
   //listen to keystorke direction
   document.addEventListener("keydown", keydirection)
+  score();
   nextdot();
   soundtrack();
 }
@@ -199,9 +202,15 @@ function dead(id){
 
 }
 function newgame(){
-  gameOverSound1.pause();  
   document.getElementsByTagName("button")[0].remove()
+  for (let i = 1; i < gridBoxSize; i++) {
+    containerBox.children[i].style.backgroundColor = "black"  
+  }
+  gameOverSound1.pause(); 
   soundtrack();
   startgame();
-  
 }
+
+
+
+
