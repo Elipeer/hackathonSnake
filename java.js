@@ -1,248 +1,207 @@
-
 //amount of divs/cells in game
 var gridBoxSize = 1600;
 //where game is played
 var containerBox = document.getElementById('container');
-//grid counter
-var i = 1;
+//start button activates game
+var startbutton = document.getElementById("button1")
+startbutton.addEventListener("click", startgame)
+//current direction
+let direction = ""
+//saves ransom noumber spot
+var rnd = 1;
+var currentId = 821;
+//the snake itself as an array
+var lastpart = [currentId, 1, 1, 1];
+let currentDiv = document.getElementById(currentId)
+ 
+var soundtrack1 = document.getElementById('sounds');
+var gameOverSound1 = document.getElementById('soundsover');
+createGame();
 
-function sound(){
-    var sound = document.getElementById("sounds");
-    sound.loop = true;
-    sound.autoplay = true;
-    sound.load();
+function gameOverSound(){
+    gameOverSound1.loop = false;
+    gameOverSound1.autoplay = true;
+    gameOverSound1.load();
+    console.log('soundsover')
+
+}
+
+function soundtrack(){
+    soundtrack1.loop = true;
+    soundtrack1.autoplay = true;
+    soundtrack1.load();
 console.log('sounds')
 }
 
-function createGame(){
-    sound();
-
-    for (i = 1; i <= gridBoxSize; i++) {
-        let newCells = document.createElement('div');
-        newCells.setAttribute('class', 'gridRows');
-        newCells.setAttribute('id', i);
-        containerBox.appendChild(newCells);
-        //console.log([i])
-    }
-
+function startgame(e){
+  startbutton.remove()
+  //fisrt dot of snake
+  var middle = document.getElementById('821');
+  middle.style.backgroundColor = 'yellow'
+  currentId = middle.id;
+  //listen to keystorke direction
+  document.addEventListener("keydown", keydirection)
+  nextdot();
+  soundtrack();
 }
-
-createGame();
-
-
-//current direction
-let direction = ""
-//listning to what direction was pressed
-document.addEventListener("keydown", keydirection)
-let gameAlive = false;
-var middle = document.getElementById('821');
-middle.style.backgroundColor = 'yellow'
-var rnd =1;
-var currentId = middle.id;
-//console.log(currentId)
-nextdot();
-let currentDiv = document.getElementById(currentId)
-
-
-var lastpart = [currentId,1,1];
-
-
-
-function addLength(){
-
-    lastpart.push(1);
-    score();
+//creates the grid of the game
+function createGame() {
+  for (let i = 1; i <= gridBoxSize; i++) {
+    let newCells = document.createElement('div');
+    newCells.setAttribute('class', 'gridRows');
+    newCells.setAttribute('id', i);
+    containerBox.appendChild(newCells);
+    //console.log([i])
+  }
 }
-addLength();
-//console.log(lastpart)
-
-function score(){
-    let score = lastpart.length-4;
-    let scoreCard = document.getElementById('scoreId');
-    scoreCard.innerHTML = score;
-    console.log(score)
+//adds one spot to the snake
+function addLength() {
+  lastpart.push(1);
+  score();
 }
-
-
-function looper(){
-    
-        document.getElementById(lastpart[lastpart.length-1]).style.backgroundColor = "black";      
-    }
-function foodCollector(){
-      if (rnd == currentId) {
-        nextdot()
-        addLength()
-       // console.log('hello')
-      }
-      
+function score() {
+  let score = lastpart.length - 4;
+  let scoreCard = document.getElementById('scoreId');
+  scoreCard.innerHTML = "Score " + score;
+  console.log(score)
 }
-
-function nextdot (){
-
-        let foodColors = ['white', 'blue', 'pink', 'green','cyan'];
-        rnd = Math.floor((Math.random() * 1600 + 1))
-        var newfood = document.getElementById(rnd)
-        for (c in foodColors){
-            var j = Math.floor(Math.random() * (c));
-            newfood.style.backgroundColor = foodColors[j];
-        }
-
-    }
-let las;
-function hitMyFace(){
-    las = lastpart.slice(1,lastpart.length);
-    if (las.includes(currentId)) {
-        console.log('you lose')
-    }
+//makes the last spot of the snake bck to black
+function looper() {
+  document.getElementById(lastpart[lastpart.length - 1]).style.backgroundColor = "black";
 }
-
-        //figurs out what arrow key was pressed
+//if food was eaten creates a new dot and makes the snake bigger
+function foodCollector() {
+  if (rnd == currentId) {
+    nextdot()
+    addLength()
+  }
+}
+//creates randomely a tod on the screen
+function nextdot() {
+  let foodColors = ["white", "blue", "pink", "green","cyan"];
+  rnd = Math.floor((Math.random() * 1600 + 1))
+  var newfood = document.getElementById(rnd)
+  newfood.style.backgroundColor = "white"
+  for (c in foodColors){
+    var j = Math.floor(Math.random() * (foodColors.length));
+    newfood.style.backgroundColor = foodColors[j];
+  } 
+  while (lastpart.includes(rnd)) {
+    rnd = Math.floor((Math.random() * 1600 + 1))
+}
+}
+//if the snake hits himself
+function hitMyFace(interval) {
+  let las = lastpart.slice(1, lastpart.length);
+  if (las.includes(currentId)) {
+    clearInterval(interval)
+    dead()
+  }
+}
+//figurs out what arrow key was pressed
 function keydirection(e) {
-let upD;
-let downD;
-let rightD;
-let leftD;
-
-    
-    switch (e.keyCode) {
-
-        case 37://direction left
-            if (direction != "r") {
-                direction = "l";
-              
-          
-          
-          leftD = setInterval(function() {
-           // console.log(currentId)
-          if ((currentId-1) %40 == 0) {
-             clearInterval(leftD)
-             console.log("you lost")
+  switch (e.keyCode) {
+    case 37://direction left
+      if (direction != "r") {
+        direction = "l";
+        let leftD = setInterval(function () {
+          if ((currentId - 1) % 40 == 0) {
+            clearInterval(leftD)
+            dead(leftD)
           }
-            else {
-                hitMyFace();
-                if (direction != "l") {
-                clearInterval(leftD);
-              }
-                          
-               looper();
-            foodCollector();
-               
-              
-              currentId = Number(currentId)-1;                   
-              let currentDiv = document.getElementById(currentId)
-              currentDiv.style.backgroundColor = 'yellow'
-              lastpart.unshift(currentId)
-              lastpart.pop();
-              //console.log(lastpart)
-             
-              
-            }
-         }, 100);
-        
-            }
-            break;
-        case 38://direction up
-            if (direction != "d") {
-                direction = "u";
-          upD = setInterval(function() {
-          if (currentId > 0 && currentId<41) {
-             clearInterval(upD)
-             console.log("you lost")
-          }
-            else {
-                hitMyFace();
-               // console.log(lastpart);
-                if (direction != "u") {
-                clearInterval(upD);
-              }
-               looper();
-               foodCollector();
-
-
-
-              currentId = Number(currentId)-40;
-              let currentDiv = document.getElementById(eval(currentId))  
-              currentDiv.style.backgroundColor = 'yellow'
-              lastpart.unshift(currentId)
-              lastpart.pop();
-             // console.log(lastpart)
-              
-              
-
-              
-            }
-         }, 100);
-
-            }
-            break;
-
-
-        case 39://direction right
+          else {
             if (direction != "l") {
-                direction = "r";
-
-           rightD = setInterval(function() {
-          if (currentId %40 == 0) {
-             clearInterval(rightD)
-             console.log("you lost")
+              clearInterval(leftD);
+            }
+            currentId = Number(currentId) - 1;
+            codecaller(leftD)                      
           }
-            else {
-                hitMyFace();
-                if (direction != "r") {
-                clearInterval(rightD);
-              }
-               looper();
-            foodCollector();
-             
-              currentId = Number(currentId)+1;
-              let currentDiv = document.getElementById(eval(currentId))  
-              currentDiv.style.backgroundColor = 'yellow'
-              lastpart.unshift(currentId)
-              lastpart.pop();
-             // console.log(lastpart)
-              
-              
-            }
         }, 100);
-            }
-            break;
-
-
-
-
-        case 40://direction down
-
+      }
+      break;
+    case 38://direction up
+      if (direction != "d") {
+        direction = "u";
+        let upD = setInterval(function () {
+          if (currentId > 0 && currentId < 41) {
+            clearInterval(upD)
+            dead(upD)
+          }
+          else {
             if (direction != "u") {
-                direction = "d";
-
-               
-             downD = setInterval(function() {
-
-          if (currentId > 1560 && currentId<1601) {
-             clearInterval(downD)
-             console.log("you lost")
-           }
-            else {
-                hitMyFace();
-               if (direction != "d") {
-                clearInterval(downD);
-              }
-               looper();
-            foodCollector();
-            
-              currentId = Number(currentId)+40;
-              let currentDiv = document.getElementById(eval(currentId))  
-              currentDiv.style.backgroundColor = 'yellow'
-              lastpart.unshift(currentId)
-              lastpart.pop();
-             // console.log(lastpart)
-              
-              
+              clearInterval(upD);
             }
+            currentId = Number(currentId) - 40;
+            codecaller(upD)           
+          }
         }, 100);
+      }
+      break;
+    case 39://direction right
+      if (direction != "l") {
+        direction = "r";
+        let rightD = setInterval(function () {
+          if (currentId % 40 == 0) {
+            clearInterval(rightD)
+            dead(rightD)
+          }
+          else {
+            if (direction != "r") {
+              clearInterval(rightD);
             }
+            currentId = Number(currentId) + 1;
+            codecaller(rightD)             
+          }
+        }, 100);
+      }
+      break;
+    case 40://direction down
+      if (direction != "u") {
+        direction = "d";
+        let downD = setInterval(function () {
+          if (currentId > 1560 && currentId < 1601) {
+            clearInterval(downD)
+            dead(downD)
+          }
+          else {
+            if (direction != "d") {
+              clearInterval(downD);
+            }
+            currentId = Number(currentId) + 40;
+            codecaller(downD)            
+          }
+        }, 100);
+      }
+      break;
+    default:
+  }
+}
+function codecaller(interval){
+  let currentDiv = document.getElementById(currentId)
+  currentDiv.style.backgroundColor = 'yellow'
+  lastpart.unshift(currentId)
+  lastpart.pop();
+  looper();
+  foodCollector();          
+  hitMyFace(interval);
+}         
+function dead(id){
+  soundtrack1.pause();
+  gameOverSound();
+  console.log("dead")
+  clearInterval(id)
+  document.removeEventListener("keydown", keydirection)
+  let loose = document.createElement("button")
+  loose.setAttribute("class", "button button2");
+  loose.innerHTML = "Play Again"
+  document.getElementById("container").appendChild(loose)
+  loose.addEventListener("click", newgame)
 
-            break;
-        default:
-    }
+}
+function newgame(){
+  gameOverSound1.pause();  
+  document.getElementsByTagName("button")[0].remove()
+  soundtrack();
+  startgame();
+  
 }

@@ -1,3 +1,4 @@
+  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,17 +7,22 @@
     <title>Snake Game</title>
     <link rel="icon" type="image/x-icon" href="snakelogo.jpg" />
     <link rel="stylesheet" type="text/css" href="style.css">
-
-
 </head>
 <body>
-<audio id="sounds">
 
-  <source src="snakeSound.mp3" type="audio/mpeg">
-
-</audio>
     <div class="scoreBox" id="scoreId">Score</div>
-    <div class="container" id="container"></div>
+    
+    <div class="container" id="container">
+        <div id="button1"><button class="button button1">Play Game</button></div>
+    </div>
+
+    <audio id="sounds">
+       <source src="snakeSound.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="soundsover">
+       <source src="gameOverSound.mp3" type="audio/mpeg">
+    </audio>
+
     <script type="text/javascript" src="java.js"></script>
 </body>
 </html>
