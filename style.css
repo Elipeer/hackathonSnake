@@ -8,8 +8,7 @@ body, html{
 }
 
 .scoreBox{
-	display: flex;
-	justify-content: center;
+
 }
 
 .container{
@@ -48,6 +47,7 @@ body, html{
 	text-decoration: none;
 	display: inline-block;
 	font-size: 16px;
+	align-self: center;
 	margin: 4px 2px;
 	transition-duration: 0.4s;
 	cursor: pointer;
