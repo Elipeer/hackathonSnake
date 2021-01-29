@@ -12,7 +12,6 @@ body, html{
 	justify-content: center;
 }
 
-
 .container{
     display: grid;
     grid-template-columns: repeat(40, 1fr);
