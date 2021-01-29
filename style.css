@@ -38,4 +38,6 @@ body, html{
 	box-sizing: content-box;
     border: solid white 2px;
 } 
-
+#lost{
+	display: none;
+}

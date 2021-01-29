@@ -75,15 +75,14 @@ function keydirection(e) {
         let leftD = setInterval(function () {
           if ((currentId - 1) % 40 == 0) {
             clearInterval(leftD)
-            dead()
+            dead(leftD)
           }
           else {
             if (direction != "l") {
               clearInterval(leftD);
             }
-            codecaller()
             currentId = Number(currentId) - 1;
-            workcode()                      
+            codecaller()                      
           }
         }, 100);
       }
@@ -95,15 +94,14 @@ function keydirection(e) {
         let upD = setInterval(function () {
           if (currentId > 0 && currentId < 40) {
             clearInterval(upD)
-            dead()
+            dead(upD)
           }
           else {
             if (direction != "u") {
               clearInterval(upD);
             }
-            codecaller()
             currentId = Number(currentId) - 40;
-            workcode()           
+            codecaller()           
           }
         }, 100);
       }
@@ -115,15 +113,14 @@ function keydirection(e) {
         let rightD = setInterval(function () {
           if (currentId % 40 == 0) {
             clearInterval(rightD)
-            dead()
+            dead(rightD)
           }
           else {
             if (direction != "r") {
               clearInterval(rightD);
             }
-            codecaller()
             currentId = Number(currentId) + 1;
-            workcode()             
+            codecaller()             
           }
         }, 100);
       }
@@ -135,15 +132,14 @@ function keydirection(e) {
         let downD = setInterval(function () {
           if (currentId > 1560 && currentId < 1601) {
             clearInterval(downD)
-            dead()
+            dead(downD)
           }
           else {
             if (direction != "d") {
               clearInterval(downD);
             }
-            codecaller()
             currentId = Number(currentId) + 40;
-            workcode()            
+            codecaller()            
           }
         }, 100);
       }
@@ -151,18 +147,19 @@ function keydirection(e) {
     default:
   }
 }
-function workcode(){
+function codecaller(){
   let currentDiv = document.getElementById(currentId)
   currentDiv.style.backgroundColor = 'yellow'
   lastpart.unshift(currentId)
   lastpart.pop();
-}
-function codecaller(){
+  looper();
   foodCollector();          
   hitMyFace();
-  looper();           
-}
-function dead(){
-  let loose = document.getElementById("lost")
-  loose.style.display = "block"//still need to create work in progress
+}         
+
+function dead(id){
+  console.log("dead")
+  clearInterval(id)
+  /*let loose = document.getElementById("lost")
+  loose.style.display = "block"//still need to create work in progress*/
 }
