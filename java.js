@@ -54,9 +54,18 @@ function foodCollector() {
 }
 //creates randomely a tod on the screen
 function nextdot() {
+  let foodColors = ["white", "blue", "pink", "green","cyan"];
   rnd = Math.floor((Math.random() * 1600 + 1))
   var newfood = document.getElementById(rnd)
   newfood.style.backgroundColor = "white"
+  for (c in foodColors){
+    var j = Math.floor(Math.random() * (foodColors.length));
+    newfood.style.backgroundColor = foodColors[j];
+  } 
+  while (lastpart.includes(rnd)) {
+    rnd = Math.floor((Math.random() * 1600 + 1))
+}
+
 }
 //if the snake hits himself
 function hitMyFace() {
@@ -92,7 +101,7 @@ function keydirection(e) {
       if (direction != "d") {
         direction = "u";
         let upD = setInterval(function () {
-          if (currentId > 0 && currentId < 40) {
+          if (currentId > 0 && currentId < 41) {
             clearInterval(upD)
             dead(upD)
           }
