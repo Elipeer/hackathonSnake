@@ -3,23 +3,30 @@ var gridBoxSize = 1600;
 //where game is played
 var containerBox = document.getElementById('container');
 
-createGame();
-
+//start button activates game
+var startbutton = document.getElementById("button1")
+startbutton.addEventListener("click", startgame)
 //current direction
 let direction = ""
-//listning to what direction was pressed
-document.addEventListener("keydown", keydirection)
-//fisrt dot of snake
-var middle = document.getElementById('821');
-middle.style.backgroundColor = 'yellow'
 //saves ransom noumber spot
 var rnd = 1;
-var currentId = middle.id;
+var currentId = 821;
 //the snake itself as an array
 var lastpart = [currentId, 1, 1, 1];
 let currentDiv = document.getElementById(currentId)
+ 
+createGame();
 
-nextdot();
+function startgame(e){
+  startbutton.remove()
+  //fisrt dot of snake
+  var middle = document.getElementById('821');
+  middle.style.backgroundColor = 'yellow'
+  currentId = middle.id;
+  //listen to keystorke direction
+  document.addEventListener("keydown", keydirection)
+  nextdot();
+}
 //creates the grid of the game
 function createGame() {
   for (let i = 1; i <= gridBoxSize; i++) {
@@ -68,9 +75,10 @@ function nextdot() {
 
 }
 //if the snake hits himself
-function hitMyFace() {
+function hitMyFace(interval) {
   let las = lastpart.slice(1, lastpart.length);
   if (las.includes(currentId)) {
+    clearInterval(interval)
     dead()
   }
 }
@@ -91,7 +99,7 @@ function keydirection(e) {
               clearInterval(leftD);
             }
             currentId = Number(currentId) - 1;
-            codecaller()                      
+            codecaller(leftD)                      
           }
         }, 100);
       }
@@ -110,7 +118,7 @@ function keydirection(e) {
               clearInterval(upD);
             }
             currentId = Number(currentId) - 40;
-            codecaller()           
+            codecaller(upD)           
           }
         }, 100);
       }
@@ -129,7 +137,7 @@ function keydirection(e) {
               clearInterval(rightD);
             }
             currentId = Number(currentId) + 1;
-            codecaller()             
+            codecaller(rightD)             
           }
         }, 100);
       }
@@ -148,7 +156,7 @@ function keydirection(e) {
               clearInterval(downD);
             }
             currentId = Number(currentId) + 40;
-            codecaller()            
+            codecaller(downD)            
           }
         }, 100);
       }
@@ -156,19 +164,23 @@ function keydirection(e) {
     default:
   }
 }
-function codecaller(){
+function codecaller(interval){
   let currentDiv = document.getElementById(currentId)
   currentDiv.style.backgroundColor = 'yellow'
   lastpart.unshift(currentId)
   lastpart.pop();
   looper();
   foodCollector();          
-  hitMyFace();
+  hitMyFace(interval);
 }         
 
 function dead(id){
   console.log("dead")
   clearInterval(id)
-  /*let loose = document.getElementById("lost")
-  loose.style.display = "block"//still need to create work in progress*/
+  document.removeEventListener("keydown", keydirection)
+  let loose = document.createElement("button")
+  loose.setAttribute("class", "button button2");
+  loose.innerHTML = "Play Again"
+  document.getElementById("container").appendChild(loose)
+  
 }
