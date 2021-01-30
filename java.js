@@ -15,24 +15,24 @@ var lastpart = [currentId, 1, 1, 1];
 let currentDiv = document.getElementById(currentId)
 //checks if is alive
 var alive = true
- 
+
 var soundtrack1 = document.getElementById('sounds');
 var gameOverSound1 = document.getElementById('soundsover');
 createGame();
 
-function gameOverSound(){
-    gameOverSound1.loop = false;
-    gameOverSound1.autoplay = true;
-    gameOverSound1.load();
+function gameOverSound() {
+  gameOverSound1.loop = false;
+  gameOverSound1.autoplay = true;
+  gameOverSound1.load();
 }
 
-function soundtrack(){
-    soundtrack1.loop = true;
-    soundtrack1.autoplay = true;
-    soundtrack1.load();
+function soundtrack() {
+  soundtrack1.loop = true;
+  soundtrack1.autoplay = true;
+  soundtrack1.load();
 }
 
-function startgame(e){
+function startgame(e) {
   startbutton.remove()
   //fisrt dot of snake
   var middle = document.getElementById('821');
@@ -79,17 +79,17 @@ function foodCollector() {
 }
 //creates randomely a tod on the screen
 function nextdot() {
-  let foodColors = ["white", "blue", "pink", "green","cyan"];
+  let foodColors = ["white", "blue", "pink", "green", "cyan"];
   rnd = Math.floor((Math.random() * 1600 + 1))
   var newfood = document.getElementById(rnd)
   newfood.style.backgroundColor = "white"
-  for (c in foodColors){
+  for (c in foodColors) {
     var j = Math.floor(Math.random() * (foodColors.length));
     newfood.style.backgroundColor = foodColors[j];
-  } 
+  }
   while (lastpart.includes(rnd)) {
     rnd = Math.floor((Math.random() * 1600 + 1))
-}
+  }
 }
 //if the snake hits himself
 function hitMyFace(interval) {
@@ -108,16 +108,16 @@ function keydirection(e) {
         let leftD = setInterval(function () {
           if ((currentId - 1) % 40 == 0) {
             clearInterval(leftD)
-            if(alive){
-            dead(leftD)
-          }
+            if (alive) {
+              dead(leftD)
+            }
           }
           else {
             if (direction != "l") {
               clearInterval(leftD);
             }
             currentId = Number(currentId) - 1;
-            codecaller(leftD)                      
+            codecaller(leftD)
           }
         }, 100);
       }
@@ -128,8 +128,8 @@ function keydirection(e) {
         let upD = setInterval(function () {
           if (currentId > 0 && currentId < 41) {
             clearInterval(upD)
-            if(alive){
-            dead(upD)
+            if (alive) {
+              dead(upD)
             }
           }
           else {
@@ -137,7 +137,7 @@ function keydirection(e) {
               clearInterval(upD);
             }
             currentId = Number(currentId) - 40;
-            codecaller(upD)           
+            codecaller(upD)
           }
         }, 100);
       }
@@ -148,8 +148,8 @@ function keydirection(e) {
         let rightD = setInterval(function () {
           if (currentId % 40 == 0) {
             clearInterval(rightD)
-            if(alive){
-            dead(rightD)
+            if (alive) {
+              dead(rightD)
             }
           }
           else {
@@ -157,7 +157,7 @@ function keydirection(e) {
               clearInterval(rightD);
             }
             currentId = Number(currentId) + 1;
-            codecaller(rightD)             
+            codecaller(rightD)
           }
         }, 100);
       }
@@ -168,8 +168,8 @@ function keydirection(e) {
         let downD = setInterval(function () {
           if (currentId > 1560 && currentId < 1601) {
             clearInterval(downD)
-            if(alive){
-            dead(downD)
+            if (alive) {
+              dead(downD)
             }
           }
           else {
@@ -177,7 +177,7 @@ function keydirection(e) {
               clearInterval(downD);
             }
             currentId = Number(currentId) + 40;
-            codecaller(downD)            
+            codecaller(downD)
           }
         }, 100);
       }
@@ -185,22 +185,22 @@ function keydirection(e) {
     default:
   }
 }
-function codecaller(interval){
+function codecaller(interval) {
   let currentDiv = document.getElementById(currentId)
   currentDiv.style.backgroundColor = 'yellow'
   lastpart.unshift(currentId)
   lastpart.pop();
   looper();
-  foodCollector();          
+  foodCollector();
   hitMyFace(interval);
-}         
-function dead(id){
+}
+function dead(id) {
   alive = false
   document.removeEventListener("keydown", keydirection)
   soundtrack1.pause();
   gameOverSound();
   clearInterval(id)
-  
+
   let loose = document.createElement("button")
   loose.setAttribute("class", "button button2");
   loose.innerHTML = "Play Again"
@@ -208,12 +208,12 @@ function dead(id){
   loose.addEventListener("click", newgame)
 
 }
-function newgame(){
+function newgame() {
   document.getElementsByTagName("button")[0].remove()
   for (let i = 1; i < gridBoxSize; i++) {
-    containerBox.children[i].style.backgroundColor = "black"  
+    containerBox.children[i].style.backgroundColor = "black"
   }
-  gameOverSound1.pause(); 
+  gameOverSound1.pause();
   soundtrack();
   startgame();
 }
