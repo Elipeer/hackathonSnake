@@ -84,15 +84,16 @@ function foodCollector() {
 function nextdot() {
   let foodColors = ["white", "blue", "pink", "green", "cyan"];
   rnd = Math.floor((Math.random() * 1600 + 1))
+  while (lastpart.includes(rnd)) {
+    rnd = Math.floor((Math.random() * 1600 + 1))
+  }
   var newfood = document.getElementById(rnd)
   newfood.style.backgroundColor = "white"
   for (c in foodColors) {
     var j = Math.floor(Math.random() * (foodColors.length));
     newfood.style.backgroundColor = foodColors[j];
   }
-  while (lastpart.includes(rnd)) {
-    rnd = Math.floor((Math.random() * 1600 + 1))
-  }
+  
 }
 //if the snake hits himself
 function hitMyFace(interval) {
