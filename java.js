@@ -13,6 +13,8 @@ var currentId = 821;
 //the snake itself as an array
 var lastpart = [currentId, 1, 1, 1];
 let currentDiv = document.getElementById(currentId)
+//checks if is alive
+var alive = true
  
 var soundtrack1 = document.getElementById('sounds');
 var gameOverSound1 = document.getElementById('soundsover');
@@ -22,15 +24,12 @@ function gameOverSound(){
     gameOverSound1.loop = false;
     gameOverSound1.autoplay = true;
     gameOverSound1.load();
-    console.log('soundsover')
-
 }
 
 function soundtrack(){
     soundtrack1.loop = true;
     soundtrack1.autoplay = true;
     soundtrack1.load();
-console.log('sounds')
 }
 
 function startgame(e){
@@ -41,6 +40,7 @@ function startgame(e){
   currentId = middle.id;
   lastpart = [currentId, 1, 1, 1];
   direction = ""
+  alive = true
   //listen to keystorke direction
   document.addEventListener("keydown", keydirection)
   score();
@@ -54,7 +54,6 @@ function createGame() {
     newCells.setAttribute('class', 'gridRows');
     newCells.setAttribute('id', i);
     containerBox.appendChild(newCells);
-    //console.log([i])
   }
 }
 //adds one spot to the snake
@@ -66,7 +65,6 @@ function score() {
   let score = lastpart.length - 4;
   let scoreCard = document.getElementById('scoreId');
   scoreCard.innerHTML = "Score: " + score;
-  console.log(score)
 }
 //makes the last spot of the snake bck to black
 function looper() {
@@ -110,7 +108,9 @@ function keydirection(e) {
         let leftD = setInterval(function () {
           if ((currentId - 1) % 40 == 0) {
             clearInterval(leftD)
+            if(alive){
             dead(leftD)
+          }
           }
           else {
             if (direction != "l") {
@@ -128,7 +128,9 @@ function keydirection(e) {
         let upD = setInterval(function () {
           if (currentId > 0 && currentId < 41) {
             clearInterval(upD)
+            if(alive){
             dead(upD)
+            }
           }
           else {
             if (direction != "u") {
@@ -146,7 +148,9 @@ function keydirection(e) {
         let rightD = setInterval(function () {
           if (currentId % 40 == 0) {
             clearInterval(rightD)
+            if(alive){
             dead(rightD)
+            }
           }
           else {
             if (direction != "r") {
@@ -164,7 +168,9 @@ function keydirection(e) {
         let downD = setInterval(function () {
           if (currentId > 1560 && currentId < 1601) {
             clearInterval(downD)
+            if(alive){
             dead(downD)
+            }
           }
           else {
             if (direction != "d") {
@@ -189,11 +195,12 @@ function codecaller(interval){
   hitMyFace(interval);
 }         
 function dead(id){
+  alive = false
+  document.removeEventListener("keydown", keydirection)
   soundtrack1.pause();
   gameOverSound();
-  console.log("dead")
   clearInterval(id)
-  document.removeEventListener("keydown", keydirection)
+  
   let loose = document.createElement("button")
   loose.setAttribute("class", "button button2");
   loose.innerHTML = "Play Again"
