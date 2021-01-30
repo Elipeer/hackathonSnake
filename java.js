@@ -42,7 +42,7 @@ function startgame(e) {
   currentId = middle.id;
   lastpart = [currentId, 1, 1, 1];
   direction = ""
-  //alive = true
+  alive = true
   //listen to keystorke direction
   document.addEventListener("keydown", keydirection)
   score();
