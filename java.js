@@ -18,6 +18,8 @@ var alive = true
  
 var soundtrack1 = document.getElementById('sounds');
 var gameOverSound1 = document.getElementById('soundsover');
+
+
 createGame();
 
 function gameOverSound(){
@@ -33,6 +35,7 @@ function soundtrack(){
 }
 
 function startgame(e){
+ 
   startbutton.remove()
   //fisrt dot of snake
   var middle = document.getElementById('821');
@@ -49,6 +52,7 @@ function startgame(e){
 }
 //creates the grid of the game
 function createGame() {
+
   for (let i = 1; i <= gridBoxSize; i++) {
     let newCells = document.createElement('div');
     newCells.setAttribute('class', 'gridRows');
@@ -101,11 +105,18 @@ function hitMyFace(interval) {
 }
 //figurs out what arrow key was pressed
 function keydirection(e) {
+//intervals
+let leftD;
+let rightD;
+let upD;
+let downD;
+
+
   switch (e.keyCode) {
     case 37://direction left
       if (direction != "r") {
         direction = "l";
-        let leftD = setInterval(function () {
+        leftD = setInterval(function () {
           if ((currentId - 1) % 40 == 0) {
             clearInterval(leftD)
             if(alive){
@@ -116,6 +127,7 @@ function keydirection(e) {
             if (direction != "l") {
               clearInterval(leftD);
             }
+           
             currentId = Number(currentId) - 1;
             codecaller(leftD)                      
           }
@@ -125,7 +137,7 @@ function keydirection(e) {
     case 38://direction up
       if (direction != "d") {
         direction = "u";
-        let upD = setInterval(function () {
+        upD = setInterval(function () {
           if (currentId > 0 && currentId < 41) {
             clearInterval(upD)
             if(alive){
@@ -136,6 +148,7 @@ function keydirection(e) {
             if (direction != "u") {
               clearInterval(upD);
             }
+           
             currentId = Number(currentId) - 40;
             codecaller(upD)           
           }
@@ -145,7 +158,7 @@ function keydirection(e) {
     case 39://direction right
       if (direction != "l") {
         direction = "r";
-        let rightD = setInterval(function () {
+        rightD = setInterval(function () {
           if (currentId % 40 == 0) {
             clearInterval(rightD)
             if(alive){
@@ -156,6 +169,7 @@ function keydirection(e) {
             if (direction != "r") {
               clearInterval(rightD);
             }
+           
             currentId = Number(currentId) + 1;
             codecaller(rightD)             
           }
@@ -165,7 +179,7 @@ function keydirection(e) {
     case 40://direction down
       if (direction != "u") {
         direction = "d";
-        let downD = setInterval(function () {
+        downD = setInterval(function () {
           if (currentId > 1560 && currentId < 1601) {
             clearInterval(downD)
             if(alive){
@@ -176,6 +190,7 @@ function keydirection(e) {
             if (direction != "d") {
               clearInterval(downD);
             }
+           
             currentId = Number(currentId) + 40;
             codecaller(downD)            
           }
@@ -183,8 +198,8 @@ function keydirection(e) {
       }
       break;
     default:
-  }
-}
+  }}
+
 function codecaller(interval){
   let currentDiv = document.getElementById(currentId)
   currentDiv.style.backgroundColor = 'yellow'
@@ -197,6 +212,7 @@ function codecaller(interval){
 function dead(id){
   alive = false
   document.removeEventListener("keydown", keydirection)
+
   soundtrack1.pause();
   gameOverSound();
   clearInterval(id)
@@ -209,6 +225,7 @@ function dead(id){
 
 }
 function newgame(){
+ 
   document.getElementsByTagName("button")[0].remove()
   for (let i = 1; i < gridBoxSize; i++) {
     containerBox.children[i].style.backgroundColor = "black"  
