@@ -15,8 +15,9 @@ var lastpart = [currentId, 1, 1, 1];
 let currentDiv = document.getElementById(currentId)
 //checks if is alive
 var alive = true
-
+//add soundtrack
 var soundtrack1 = document.getElementById('sounds');
+//gameOver sound
 var gameOverSound1 = document.getElementById('soundsover');
 
 
@@ -64,6 +65,7 @@ function addLength() {
   lastpart.push(1);
   score();
 }
+
 function score() {
   let score = lastpart.length - 4;
   let scoreCard = document.getElementById('scoreId');
@@ -83,7 +85,9 @@ function foodCollector() {
 //creates randomely a tod on the screen
 function nextdot() {
   let foodColors = ["white", "blue", "pink", "green", "cyan"];
+  //
   rnd = Math.floor((Math.random() * 1600 + 1))
+  //prevents bug that creates box on snake
   while (lastpart.includes(rnd)) {
     rnd = Math.floor((Math.random() * 1600 + 1))
   }
