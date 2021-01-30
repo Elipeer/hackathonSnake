@@ -18,6 +18,8 @@ var alive = true
 
 var soundtrack1 = document.getElementById('sounds');
 var gameOverSound1 = document.getElementById('soundsover');
+
+
 createGame();
 
 function gameOverSound() {
@@ -49,6 +51,7 @@ function startgame(e) {
 }
 //creates the grid of the game
 function createGame() {
+
   for (let i = 1; i <= gridBoxSize; i++) {
     let newCells = document.createElement('div');
     newCells.setAttribute('class', 'gridRows');
@@ -101,6 +104,7 @@ function hitMyFace(interval) {
 }
 //figurs out what arrow key was pressed
 function keydirection(e) {
+
   switch (e.keyCode) {
     case 37://direction left
       if (direction != "r") {
@@ -116,6 +120,7 @@ function keydirection(e) {
             if (direction != "l") {
               clearInterval(leftD);
             }
+           
             currentId = Number(currentId) - 1;
             codecaller(leftD)
           }
@@ -136,6 +141,7 @@ function keydirection(e) {
             if (direction != "u") {
               clearInterval(upD);
             }
+           
             currentId = Number(currentId) - 40;
             codecaller(upD)
           }
@@ -156,6 +162,7 @@ function keydirection(e) {
             if (direction != "r") {
               clearInterval(rightD);
             }
+           
             currentId = Number(currentId) + 1;
             codecaller(rightD)
           }
@@ -176,6 +183,7 @@ function keydirection(e) {
             if (direction != "d") {
               clearInterval(downD);
             }
+           
             currentId = Number(currentId) + 40;
             codecaller(downD)
           }
@@ -197,6 +205,7 @@ function codecaller(interval) {
 function dead(id) {
   alive = false
   document.removeEventListener("keydown", keydirection)
+
   soundtrack1.pause();
   gameOverSound();
   clearInterval(id)
