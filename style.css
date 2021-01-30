@@ -5,17 +5,17 @@ body, html{
 	display: flex;
 	align-content: flex-start;
 	justify-content: center;
-    background-image: url('https://png.pngtree.com/thumb_back/fw800/back_pic/00/11/26/5356376b0b393f6.jpg');
-    background-repeat: no-repeat;
-   background-position: center;
-   background-size: cover;
-   overflow: hidden;
+  background-image: url('https://png.pngtree.com/thumb_back/fw800/back_pic/00/11/26/5356376b0b393f6.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
 }
 
 .scoreBox{
-    font-family: 'Orbitron', sans-serif;
-    font-size: 65px;
-    
+	font-family: 'Orbitron', sans-serif;
+	font-size: 65px;
+
 }
 
 .container{
@@ -60,8 +60,8 @@ body, html{
 	transition-duration: 0.4s;
 	cursor: pointer;
 	position: absolute;
-  	top: 53%;
-  	left: 50%;
+  top: 53%;
+  left: 50%;
 	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
   }
@@ -88,10 +88,9 @@ body, html{
 	color: white;
   }
   #papabear{
-  	display: flex;
+	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	align-content: center;
-
   }
