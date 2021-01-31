@@ -36,19 +36,12 @@ function soundtrack(){
 }
 
 function bugFix(){
- 
-  startbutton.remove()
   //fisrt dot of snake
   var middle = document.getElementById('821');
   middle.style.backgroundColor = 'yellow'
   currentId = middle.id;
   lastpart = [currentId, 1, 1, 1];
   direction = ""
-  isAlive = true
-  //listen to keystorke direction
-  document.addEventListener("keydown", keydirection)
-  score();
-  soundtrack();
 }
 
 function startgame(e){
