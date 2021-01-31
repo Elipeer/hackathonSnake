@@ -13,8 +13,8 @@ var currentId = 821;
 //the snake itself as an array
 var lastpart = [currentId, 1, 1, 1];
 let currentDiv = document.getElementById(currentId)
-//checks if is alive
-var alive = false;
+//checks if is isAlive
+var isAlive = false;
  
 var soundtrack1 = document.getElementById('sounds');
 var gameOverSound1 = document.getElementById('soundsover');
@@ -35,6 +35,22 @@ function soundtrack(){
     soundtrack1.load();
 }
 
+function bugFix(){
+ 
+  startbutton.remove()
+  //fisrt dot of snake
+  var middle = document.getElementById('821');
+  middle.style.backgroundColor = 'yellow'
+  currentId = middle.id;
+  lastpart = [currentId, 1, 1, 1];
+  direction = ""
+  isAlive = true
+  //listen to keystorke direction
+  document.addEventListener("keydown", keydirection)
+  score();
+  soundtrack();
+}
+
 function startgame(e){
  
   startbutton.remove()
@@ -44,7 +60,7 @@ function startgame(e){
   currentId = middle.id;
   lastpart = [currentId, 1, 1, 1];
   direction = ""
-  alive = true
+  isAlive = true
   //listen to keystorke direction
   document.addEventListener("keydown", keydirection)
   score();
@@ -111,8 +127,11 @@ function hitMyFace(interval) {
     dead()
   }
 }
+
+
 //figurs out what arrow key was pressed
 function keydirection(e) {
+
 
   switch (e.keyCode) {
     case 37://direction left
@@ -121,7 +140,8 @@ function keydirection(e) {
         let leftD = setInterval(function () {
           if ((currentId - 1) % 40 == 0) {
             clearInterval(leftD)
-            if(alive){
+            bugFix();
+            if(isAlive){
             dead(leftD)
           }
           }
@@ -142,7 +162,8 @@ function keydirection(e) {
        let upD = setInterval(function () {
           if (currentId > 0 && currentId < 41) {
             clearInterval(upD)
-            if(alive){
+            bugFix();
+            if(isAlive){
             dead(upD)
             }
           }
@@ -158,12 +179,14 @@ function keydirection(e) {
       }
       break;
     case 39://direction right
+     if (isAlive) {
       if (direction != "l") {
         direction = "r";
         let rightD = setInterval(function () {
           if (currentId % 40 == 0) {
             clearInterval(rightD)
-            if(alive){
+            bugFix();
+            if(isAlive){
             dead(rightD);
             }
           }
@@ -176,17 +199,21 @@ function keydirection(e) {
             codecaller(rightD)             
           }
         }, snakeSpeed);
-      }
+        console.log('right')
+      }}
       break;
     case 40://direction down
       if (direction != "u") {
         direction = "d";
         let downD = setInterval(function () {
           if (currentId > 1560 && currentId < 1601) {
-            clearInterval(downD)
-            if(alive){
-            dead(downD)
+            if(isAlive){
+            dead()
+            
             }
+            isAlive = false;
+            clearInterval(downD)
+            bugFix();
           }
           else {
             if (direction != "d") {
@@ -201,6 +228,7 @@ function keydirection(e) {
       break;
     default:
   }}
+  
 
 function codecaller(interval){
   let currentDiv = document.getElementById(currentId)
@@ -212,20 +240,21 @@ function codecaller(interval){
   hitMyFace(interval);
 }         
 function dead(id){
-  alive = false
+  isAlive = false
   document.removeEventListener("keydown", keydirection)
   soundtrack1.pause();
   gameOverSound();
   clearInterval(id)
-  
-  let loose = document.createElement("button")
-  loose.setAttribute("class", "button button2");
-  loose.innerHTML = "Play Again"
-  document.getElementById("container").appendChild(loose)
-  loose.addEventListener("click", newgame)
+  //lose button
+  let lose = document.createElement("button")
+  lose.setAttribute("class", "button button2");
+  lose.innerHTML = "Play Again"
+  document.getElementById("container").appendChild(lose)
+  lose.addEventListener("click", newgame)
 
 }
 function newgame(){
+  isAlive = true;
   snakeSpeed = 101;
   document.getElementsByTagName("button")[0].remove()
   for (let i = 1; i < gridBoxSize; i++) {
@@ -235,7 +264,6 @@ function newgame(){
   soundtrack();
   startgame();
 }
-
 
 
 
